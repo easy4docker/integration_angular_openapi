@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ADMIN_PORT=9000
+ESITOR_PORT=9000
 DOCKERCMD=$(command -v docker)
 SCR_DIR=$(cd `dirname $0` && pwd)
 DATA_DIR=${SCR_DIR}/data
@@ -53,7 +53,10 @@ if [ $OSENV = "Mac" ]; then
     echo "localhost" > ${SCR_DIR}/data/_ip
 fi
 
+
 echo "{\"main_ip\": \"${MAIN_IP}\", \"host_ip\": \"$(cat ${SCR_DIR}/data/_ip)\", \"env\": \"$1\", \"app_root\": \"${SCR_DIR}\", \"code_folder\": \"$PWD\", \"data_folder\": \"$DATA_DIR\"}" > "$DATA_DIR"/_env.json
+
+docker run -d -p ${ESITOR_PORT}:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/swagger.json -name swagger-editor-container swaggerapi/swagger-editor
 
 #--- Main common cron loop ---
 stsCron=1
