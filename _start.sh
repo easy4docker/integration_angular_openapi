@@ -55,7 +55,7 @@ echo "{\"main_ip\": \"${MAIN_IP}\", \"host_ip\": \"$(cat ${SCR_DIR}/data/_ip)\",
 docker stop swagger-editor-container
 docker rm swagger-editor-container
 
-docker run -d -p ${ESITOR_PORT}:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/swagger.json -name swagger-editor-container swaggerapi/swagger-editor
+docker run -d -p ${ESITOR_PORT}:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/swagger.json --name swagger-editor-container swaggerapi/swagger-editor
 
 #--- Main common cron loop ---
 stsCron=1
