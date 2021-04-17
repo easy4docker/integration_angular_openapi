@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ESITOR_PORT=9000
+EDITOR_PORT=9000
+API_PORT=8000
 DOCKERCMD=$(command -v docker)
 SCR_DIR=$(cd `dirname $0` && pwd)
 TOP_DIR=$(dirname "${SCR_DIR}")
@@ -56,7 +57,16 @@ echo "{\"main_ip\": \"${MAIN_IP}\", \"host_ip\": \"$(cat ${SCR_DIR}/data/_ip)\",
 docker stop swagger-editor-container
 docker rm swagger-editor-container
 
-docker run -d -p ${ESITOR_PORT}:8080 -v ${DATA_DIR}:/tmp -e SWAGGER_FILE=/tmp/3.0.1.YAML --name swagger-editor-container swaggerapi/swagger-editor
+docker run -d -p ${EDITOR_PORT}:8080 -v ${DATA_DIR}:/tmp -e SWAGGER_FILE=/tmp/3.0.1.YAML --name swagger-editor-container swaggerapi/swagger-editor
+
+
+docker stop api-container
+
+docker rm api-container
+
+docker build -f Dockerfile -t api-image .
+
+docker run -d -p ${API_PORT}:8080 -v ${SCR_DIR}/api_server:/var/app -v ${DATA_DIR}:/var/appData --name api-container api-image
 
 #--- Main common cron loop ---
 stsCron=1
