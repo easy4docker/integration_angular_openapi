@@ -45,16 +45,15 @@ fi
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
-#--- start admin docker ---
-echo "Start admin .." >> ${LOG_PATH}/easyDockerLog.data
-cd ${SCR_DIR}/admin/dockerSetting
-
 if [ $OSENV = "Mac" ]; then
     echo "localhost" > ${SCR_DIR}/data/_ip
 fi
 
 
 echo "{\"main_ip\": \"${MAIN_IP}\", \"host_ip\": \"$(cat ${SCR_DIR}/data/_ip)\", \"env\": \"$1\", \"app_root\": \"${SCR_DIR}\", \"code_folder\": \"$PWD\", \"data_folder\": \"$DATA_DIR\"}" > "$DATA_DIR"/_env.json
+
+docker stop swagger-editor-container
+docker rm swagger-editor-container
 
 docker run -d -p ${ESITOR_PORT}:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/swagger.json -name swagger-editor-container swaggerapi/swagger-editor
 
