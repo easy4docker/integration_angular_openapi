@@ -77,3 +77,12 @@ docker image rm api-image
 docker build -t api-image .
 
 docker run -d -p ${API_PORT}:8080 -p 10000:10000 -v ${SCR_DIR}/api_server:/var/app -v ${DATA_DIR}:/var/appData --name api-container api-image
+
+cd ${SCR_DIR}/angular.io
+docker stop angular-container
+docker rm angular-container
+docker image rm angular-image
+
+docker build -t angular-image .
+
+docker run -d --rm -p 4200:4200 -v ${SCR_DIR}/angular.io:/var/app  --network network_easydocker --name angular-container angular-image
