@@ -7,7 +7,8 @@ ENV BASE_URL ""
 COPY nginx.conf /etc/nginx/
 
 COPY ./index.html /usr/share/nginx/html/
-COPY ./dist/oauth2-redirect.html /usr/share/nginx/html/
+# COPY ./oauth2-redirect.html /usr/share/nginx/html/
+# COPY ./dist/oauth2-redirect.html /usr/share/nginx/html/ &>- || true
 COPY ./dist/* /usr/share/nginx/html/dist/
 COPY ./docker-run.sh /usr/share/nginx/
 

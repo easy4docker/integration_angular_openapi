@@ -1,12 +1,12 @@
-node_modules
-dist
+node_modules1
+dist1
 .idea
 .deps_check
 .DS_Store
 .vscode
 npm-debug.log*
 .eslintcache
-dist/log*
+dist1/log*
 
 # Cypress
 test/e2e/screenshots
