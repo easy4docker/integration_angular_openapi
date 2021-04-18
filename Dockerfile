@@ -6,7 +6,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt -y install nodejs
 RUN npm install express
 RUN npm install body-parser
-RUN apt-get -y install git
+# RUN apt-get -y install git
 RUN apt-get install -y cron
 RUN apt-get install -y vim
 
