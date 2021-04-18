@@ -83,6 +83,7 @@ docker stop angular-container
 docker rm angular-container
 docker image rm angular-image
 
+npm install
+npm run-script build
 docker build -t angular-image .
-
 docker run -d --rm -p 4200:4200 -v ${SCR_DIR}/angular.io:/var/app  --network network_easydocker --name angular-container angular-image
