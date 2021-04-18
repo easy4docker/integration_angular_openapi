@@ -56,6 +56,8 @@ echo "{\"main_ip\": \"${MAIN_IP}\", \"host_ip\": \"$(cat ${SCR_DIR}/data/_ip)\",
 
 echo ${SCR_DIR}/swagger_editor
 cd ${SCR_DIR}/swagger_editor
+
+npm install
 npm run-script build
 
 # docker build -f ${TOP_DIR}/swagger_editor/Dockerfile -t local-swagger-editor .
