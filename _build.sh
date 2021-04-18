@@ -56,6 +56,7 @@ echo "{\"main_ip\": \"${MAIN_IP}\", \"host_ip\": \"$(cat ${SCR_DIR}/data/_ip)\",
 
 echo ${SCR_DIR}/swagger_editor
 cd ${SCR_DIR}/swagger_editor
+npm run-script build
 
 # docker build -f ${TOP_DIR}/swagger_editor/Dockerfile -t local-swagger-editor .
 docker build -t local-swagger-editor .
@@ -71,13 +72,3 @@ docker rm api-container
 
 docker build -f Dockerfile -t api-image .
 docker run -d -p ${API_PORT}:8080 -v ${SCR_DIR}/api_server:/var/app -v ${DATA_DIR}:/var/appData --name api-container api-image
-
-#--- Main common cron loop ---
-stsCron=1
-until [ $stsCron = 0 ]
-do 
-    if [ $stsCron != 0 ] ; then
-        sh ${SCR_DIR}/_commCron.sh &
-    fi
-    sleep 1
-done
