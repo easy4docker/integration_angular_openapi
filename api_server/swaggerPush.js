@@ -19,13 +19,13 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-app.post('/updateYAML', 
+app.post('/updateSwagger', 
   (req, res, next) => {
-      if (!req.body || !req.body.fn || req.body.content) {
+      if (!req.body || !req.body.fn || !req.body.content) {
         res.send({status:'failure', message : 'wrong post data!'});
       } else {
         fs.writeFile('/var/appData/' + req.body.fn, req.body.content, 'utf-8', (err) => {
-            res.send({status:'success', message : 'wrong post data!'});
+            res.send((!err) ? {status:'success'} : {status:'failure', message : err.message});
           });
       }
   }

@@ -66,9 +66,10 @@ docker rm swagger-editor-container
 docker run -d -p ${EDITOR_PORT}:8080 -v ${DATA_DIR}:/tmp -e SWAGGER_FILE=/tmp/3.0.1.YAML --name swagger-editor-container local-swagger-editor
 
 cd ${SCR_DIR}/api_server
-docker stop api-container
 
+docker stop api-container
 docker rm api-container
+docker image rm api-image
 
 docker build -f Dockerfile -t api-image .
-docker run -d -p ${API_PORT}:8080 -v ${SCR_DIR}/api_server:/var/app -v ${DATA_DIR}:/var/appData --name api-container api-image
+docker run -d -p ${API_PORT}:8080 -p 10000:10000 -v ${SCR_DIR}/api_server:/var/app -v ${DATA_DIR}:/var/appData --name api-container api-image
