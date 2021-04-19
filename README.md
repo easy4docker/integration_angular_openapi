@@ -1,1 +1,1 @@
-# integration angular openapi for macbook
+# angular openapi integration solution for macbook
